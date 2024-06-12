@@ -1,9 +1,10 @@
 import './App.css';
-import Header from './Header';
+import NewsList from './Header';
+import Header from './NewsList';
 import styled from 'styled-components';
 
+
 const Wrapper = styled.section`
-  padding: 4em;
   background: #f5f5f5;
     height: 100%;
 `;
@@ -13,6 +14,7 @@ function App() {
     <div className="App">
       <Wrapper>
           <Header />
+          <NewsList />
       </Wrapper>
     </div>
   );
