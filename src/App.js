@@ -1,4 +1,5 @@
 import './App.css';
+import Header from './Header';
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
@@ -11,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <Wrapper>
-
+          <Header />
       </Wrapper>
     </div>
   );

@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.header {
+  text-align: center;
+}
+.header .logo-container svg{
+  width: 170px;
+  height: 48px;
+}
+.header h4.title {
+  margin: 0;
+  color:#939393;
+  font-weight: 300;
+  font-size: 10px;
+}
