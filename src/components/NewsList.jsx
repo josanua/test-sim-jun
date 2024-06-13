@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+import {ApolloClient, InMemoryCache, ApolloProvider, gql} from '@apollo/client';
 
 const client = new ApolloClient({
     uri: 'https://point.md/graphql',
@@ -10,7 +10,7 @@ const client = new ApolloClient({
 client
     .query({
         query: gql`
-            {
+          {
               contents(
                 project_id: "5107de83-f208-4ca4-87ed-9b69d58d16e1", 
                 lang: "ru", 
@@ -23,8 +23,16 @@ client
                 title {
                   short
                 }
+                thumbnail
+                description {
+                  intro
+                  thumbnail
+                }
+                dates {
+                  posted
+                }
               }
-            }   
+            }
     `,
     })
     .then((result) => console.log(result));
