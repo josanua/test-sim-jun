@@ -1,6 +1,7 @@
 import './App.css';
 import Header from './components/Header';
 import NewsListWithProvider from './components/NewsList';
+import Container from './components/styles/Container.styled';
 import styled from 'styled-components';
 
 
@@ -11,12 +12,12 @@ const Wrapper = styled.section`
 
 function App() {
   return (
-    <div className="App">
+    <Container>
       <Wrapper>
           <Header />
           <NewsListWithProvider />
       </Wrapper>
-    </div>
+    </Container>
   );
 }
 

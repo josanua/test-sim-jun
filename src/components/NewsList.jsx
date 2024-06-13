@@ -45,7 +45,7 @@ const NewsList = () => {
                     <li key={news.id}>
                         <h2>{news.title.short}</h2>
                         <p>{news.description.intro}</p>
-                        {/*{news.thumbnail && <img src={news.thumbnail} alt={news.title.short} />}*/}
+                        {news.thumbnail && <img src={news.thumbnail} alt={news.title.short} />}
                         <p>Posted on: {new Date(news.dates.posted).toLocaleDateString()}</p>
                     </li>
                 ))}
