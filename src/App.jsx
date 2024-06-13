@@ -1,6 +1,6 @@
 import './App.css';
-import NewsList from './components/Header';
-import Header from './components/NewsList';
+import Header from './components/Header';
+import NewsListWithProvider from './components/NewsList';
 import styled from 'styled-components';
 
 
@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <Wrapper>
           <Header />
-          <NewsList />
+          <NewsListWithProvider />
       </Wrapper>
     </div>
   );
