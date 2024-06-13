@@ -1,6 +1,6 @@
 import './App.css';
-import NewsList from './Header';
-import Header from './NewsList';
+import NewsList from './components/Header';
+import Header from './components/NewsList';
 import styled from 'styled-components';
 
 

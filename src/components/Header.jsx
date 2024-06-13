@@ -1,4 +1,4 @@
-import { ReactComponent as Logo } from './assets/new-point-logo.svg';
+import { ReactComponent as Logo } from '../assets/new-point-logo.svg';
 
 const Header = () => {
     return (
