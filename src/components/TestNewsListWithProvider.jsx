@@ -41,7 +41,7 @@ const NewsList = () => {
     const [skip, setSkip] = useState(0);
 
     const { loading, error, data, fetchMore } = useQuery(GET_NEWS, {
-        variables: { skip: skipItems, take: takeItems },
+        variables: { skip: skip, take: takeItems },
         notifyOnNetworkStatusChange: true,
     });
 
