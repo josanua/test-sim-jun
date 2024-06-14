@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider, gql, useQuery } from '@apollo/client';
 
 // Initialize Apollo Client
@@ -9,12 +9,12 @@ const client = new ApolloClient({
 
 // Define GraphQL query
 const GET_NEWS = gql`
-  {
+  query GetNews($skip: Int!, $take: Int!) {
     contents(
       project_id: "5107de83-f208-4ca4-87ed-9b69d58d16e1",
       lang: "ru",
-      skip: 0,
-      take: 10
+      skip: $skip,
+      take: $take
     ) {
       id
       project_id
@@ -36,7 +36,14 @@ const GET_NEWS = gql`
 
 // Define the NewsList component
 const NewsList = () => {
-    const { loading, error, data } = useQuery(GET_NEWS);
+    const skipItems = 0;
+    const takeItems = 3;
+    const [skip, setSkip] = useState(0);
+
+    const { loading, error, data, fetchMore } = useQuery(GET_NEWS, {
+        variables: { skip: skipItems, take: takeItems },
+        notifyOnNetworkStatusChange: true,
+    });
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -44,6 +51,16 @@ const NewsList = () => {
     return (
         <div>
             <h1>News List</h1>
+            <nav
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between"
+                 }}
+            >
+                <button onClick={()=>setSkip((skip)=> skip - 1)}></button>
+                <span>Page {skip + 1}</span>
+                <button onClick={() => setSkip((skip) => skip + 1)}></button>
+            </nav>
             <ul>
                 {data.contents.map(news => (
                     <li key={news.id}>
