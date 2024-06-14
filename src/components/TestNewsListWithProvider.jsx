@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ApolloClient, InMemoryCache, ApolloProvider, gql, useQuery } from '@apollo/client';
+import React, {useState} from 'react';
+import {ApolloClient, InMemoryCache, ApolloProvider, gql, useQuery} from '@apollo/client';
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -37,11 +37,11 @@ const GET_NEWS = gql`
 // Define the NewsList component
 const NewsList = () => {
     const skipItems = 0;
-    const takeItems = 3;
-    const [skip, setSkip] = useState(0);
+    // const take = 3;
+    const [take, takeItems] = useState(0);
 
-    const { loading, error, data, fetchMore } = useQuery(GET_NEWS, {
-        variables: { skip: skip, take: takeItems },
+    const {loading, error, data, fetchMore} = useQuery(GET_NEWS, {
+        variables: {skip: skipItems, take: take},
         notifyOnNetworkStatusChange: true,
     });
 
@@ -55,18 +55,18 @@ const NewsList = () => {
                 style={{
                     display: "flex",
                     justifyContent: "space-between"
-                 }}
+                }}
             >
-                <button onClick={()=>setSkip((skip)=> skip - 1)}></button>
-                <span>Page {skip + 1}</span>
-                <button onClick={() => setSkip((skip) => skip + 1)}></button>
+                <button onClick={() => takeItems((take) => take - 1)}></button>
+                <span>Page {take + 1}</span>
+                <button onClick={() => takeItems((take) => take + 3)}></button>
             </nav>
             <ul>
                 {data.contents.map(news => (
                     <li key={news.id}>
                         <h2>{news.title.short}</h2>
                         <p>{news.description.intro}</p>
-                        {news.thumbnail && <img src={news.thumbnail} alt={news.title.short} />}
+                        {news.thumbnail && <img src={news.thumbnail} alt={news.title.short}/>}
                         <p>Posted on: {new Date(news.dates.posted).toLocaleDateString()}</p>
                     </li>
                 ))}
@@ -78,7 +78,7 @@ const NewsList = () => {
 // Wrap NewsList component with ApolloProvider
 const TestNewsListWithProvider = () => (
     <ApolloProvider client={client}>
-        <NewsList />
+        <NewsList/>
     </ApolloProvider>
 );
 
