@@ -3,6 +3,7 @@ import Header from './components/Header';
 import NewsListWithProvider from './components/NewsList';
 import Container from './components/styles/Container.styled';
 import styled from 'styled-components';
+import TestNewsListWithProvider from "./components/TestNewsListWithProvider";
 
 
 const Wrapper = styled.section`
@@ -15,7 +16,8 @@ function App() {
     <Container>
       <Wrapper>
           <Header />
-          <NewsListWithProvider />
+          {/*<NewsListWithProvider/>*/}
+          <TestNewsListWithProvider/>
       </Wrapper>
     </Container>
   );
