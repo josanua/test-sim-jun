@@ -1,19 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {ApolloClient, ApolloProvider, InMemoryCache, gql, useQuery} from '@apollo/client';
+import {gql, useQuery} from '@apollo/client';
 
-
-// Initialize Apollo Client
-const client = new ApolloClient({
-    uri: 'https://point.md/graphql',
-    cache: new InMemoryCache(),
-});
 
 const GET_NEWS = gql`
   query GetNews($skip: Int!, $take: Int!) {
     contents(
       project_id: "5107de83-f208-4ca4-87ed-9b69d58d16e1",
       lang: "ru",
-      skip: $skip,
+          skip: $skip,
       take: $take
     ) {
       id
@@ -95,9 +89,7 @@ const NewsList = () => {
 
 // Wrap NewsList component with ApolloProvider
 const NewsListWithProvider = () => (
-    <ApolloProvider client={client}>
         <NewsList />
-    </ApolloProvider>
 );
 
 export default NewsListWithProvider;

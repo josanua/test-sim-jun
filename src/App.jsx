@@ -5,7 +5,6 @@ import Container from './components/styles/Container.styled';
 import styled from 'styled-components';
 import TestNewsListWithProvider from "./components/TestNewsListWithProvider";
 
-
 const Wrapper = styled.section`
   background: #f5f5f5;
     height: 100%;

@@ -1,11 +1,6 @@
 import React, {useState} from 'react';
-import {ApolloClient, InMemoryCache, ApolloProvider, gql, useQuery} from '@apollo/client';
+import { gql, useQuery} from '@apollo/client';
 
-// Initialize Apollo Client
-const client = new ApolloClient({
-    uri: 'https://point.md/graphql',
-    cache: new InMemoryCache(),
-});
 
 // Define GraphQL query
 const GET_NEWS = gql`
@@ -38,7 +33,7 @@ const GET_NEWS = gql`
 const NewsList = () => {
     const skipItems = 0;
     // const take = 3;
-    const [take, takeItems] = useState(0);
+    const [take, takeItems] = useState(3);
 
     const {loading, error, data, fetchMore} = useQuery(GET_NEWS, {
         variables: {skip: skipItems, take: take},
@@ -57,7 +52,7 @@ const NewsList = () => {
                     justifyContent: "space-between"
                 }}
             >
-                <button onClick={() => takeItems((take) => take - 1)}></button>
+                <button onClick={() => takeItems((take) => take - 3)}></button>
                 <span>Page {take + 1}</span>
                 <button onClick={() => takeItems((take) => take + 3)}></button>
             </nav>
@@ -77,9 +72,7 @@ const NewsList = () => {
 
 // Wrap NewsList component with ApolloProvider
 const TestNewsListWithProvider = () => (
-    <ApolloProvider client={client}>
         <NewsList/>
-    </ApolloProvider>
 );
 
 export default TestNewsListWithProvider;
