@@ -71,8 +71,8 @@ const NewsList = () => {
 };
 
 // Wrap NewsList component with ApolloProvider
-const TestNewsListWithProvider = () => (
+const TestNewsList = () => (
         <NewsList/>
 );
 
-export default TestNewsListWithProvider;
+export default TestNewsList;
