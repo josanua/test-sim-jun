@@ -1,3 +1,33 @@
+body {
+  margin: 0px;
+  padding: 36px 0px 0px;
+  font-family: Onest, sans-serif, Helvetica;
+  line-height: 1.2;
+  text-size-adjust: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
+a {
+  color: rgb(15, 23, 42);
+}
+
+a, button:not(.initial), img {
+  outline: none;
+  text-decoration: none;
+}
+
+a, button {
+  cursor: pointer;
+  background: none;
+  margin: 0px;
+}
+
+
 .App {
   text-align: center;
 }

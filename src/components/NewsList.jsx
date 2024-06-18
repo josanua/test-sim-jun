@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { gql, useQuery} from '@apollo/client';
+import {gql, useQuery} from '@apollo/client';
 import NewsListItem from "./NewsListItem";
 
 
@@ -32,9 +32,7 @@ const GET_NEWS = gql`
 
 // Define the NewsList component
 const TheNewsList = () => {
-    // let skipItems = 0;
     const take = 3;
-    // const [take, takeItems] = useState(3);
     const [newsList, setNews] = useState([]);
     const [skip, setSkip] = useState(0);
 
@@ -46,7 +44,7 @@ const TheNewsList = () => {
     const loadMore = () => {
         setSkip(skip + take);
         fetchMore({
-            variables: { skip: skip + take, take },
+            variables: {skip: skip + take, take},
         });
     };
 
@@ -55,7 +53,6 @@ const TheNewsList = () => {
             setNews((prevNews) => [...prevNews, ...data.contents]);
         }
     }, [data]);
-
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -70,7 +67,7 @@ const TheNewsList = () => {
 };
 
 const NewsList = () => (
-        <TheNewsList/>
+    <TheNewsList/>
 );
 
 export default NewsList;
