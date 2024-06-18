@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { gql, useQuery} from '@apollo/client';
 
 
@@ -30,34 +30,47 @@ const GET_NEWS = gql`
 `;
 
 // Define the NewsList component
-const NewsList = () => {
-    const skipItems = 0;
-    // const take = 3;
-    const [take, takeItems] = useState(3);
+const TheNewsList = () => {
+    // let skipItems = 0;
+    const take = 3;
+    // const [take, takeItems] = useState(3);
+    const [newsList, setNews] = useState([]);
+    const [skip, setSkip] = useState(0);
 
     const {loading, error, data, fetchMore} = useQuery(GET_NEWS, {
-        variables: {skip: skipItems, take: take},
+        variables: {skip: skip, take: take},
         notifyOnNetworkStatusChange: true,
     });
+
+    const loadMore = () => {
+        setSkip(skip + take);
+        fetchMore({
+            variables: { skip: skip + take, take },
+        });
+    };
+
+    useEffect(() => {
+        if (data && data.contents) {
+            setNews((prevNews) => [...prevNews, ...data.contents]);
+        }
+    }, [data]);
+
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
     return (
         <div>
-            <h1>News List</h1>
             <nav
                 style={{
                     display: "flex",
                     justifyContent: "space-between"
                 }}
             >
-                <button onClick={() => takeItems((take) => take - 3)}></button>
-                <span>Page {take + 1}</span>
-                <button onClick={() => takeItems((take) => take + 3)}></button>
+                <button onClick={loadMore}>Load more</button>
             </nav>
             <ul>
-                {data.contents.map(news => (
+                {newsList.map(news => (
                     <li key={news.id}>
                         <h2>{news.title.short}</h2>
                         <p>{news.description.intro}</p>
@@ -66,13 +79,14 @@ const NewsList = () => {
                     </li>
                 ))}
             </ul>
+            {loading && <p>Loading more...</p>}
         </div>
     );
 };
 
 // Wrap NewsList component with ApolloProvider
 const TestNewsList = () => (
-        <NewsList/>
+        <TheNewsList/>
 );
 
 export default TestNewsList;
