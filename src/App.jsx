@@ -1,9 +1,8 @@
 import './App.css';
 import Header from './components/Header';
-import NewsListWithProvider from './components/NewsList';
 import Container from './components/styles/Container.styled';
 import styled from 'styled-components';
-import TestNewsList from "./components/TestNewsList";
+import NewsList from "./components/NewsList";
 
 const Wrapper = styled.section`
   background: #f5f5f5;
@@ -15,8 +14,7 @@ function App() {
     <Container>
       <Wrapper>
           <Header />
-          {/*<NewsListWithProvider/>*/}
-          <TestNewsList/>
+          <NewsList/>
       </Wrapper>
     </Container>
   );
