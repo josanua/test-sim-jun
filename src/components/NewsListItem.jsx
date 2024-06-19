@@ -6,6 +6,13 @@ const NewsListItem = ({newsList}) => {
     const thumbnailPath = 'https://i.simpalsmedia.com/point.md/news/370x194/';
     const logoNewsProvider = 'https://i.simpalsmedia.com/point.md/logo/f2415d7ace566f8ae4d34eba99b9b5b7.svg';
 
+    function truncateString(str, maxLength) {
+        if (str.length > maxLength) {
+            return str.slice(0, maxLength - 3) + '...';
+        }
+        return str;
+    }
+
     return (
         <>
             {newsList.map(newsItem => (
@@ -28,7 +35,7 @@ const NewsListItem = ({newsList}) => {
                             <a href="/ru/novosti/politika/nestase-spynu-eto-novyi-plakhotniuk">
                                 <h3 className="news-short-title">{newsItem.title.short}</h3>
                             </a>
-                            <p className="news-intro-text">{newsItem.description.intro}</p>
+                            <p className="news-intro-text">{truncateString(newsItem.description.intro, 142)}</p>
                             <div className="news-metadata-wrapper">
                                 <div className="news-metadata-content">
                                     <img
@@ -38,8 +45,8 @@ const NewsListItem = ({newsList}) => {
                                     />
                                     <time
                                         className="posted-time-text">
-                                        {/*{new Date(newsItem.dates.posted).toLocaleDateString()}*/}
                                         {newsItem.dates.posted}
+                                        {/*{new Date(newsItem.dates.posted).toLocaleDateString()}*/}
                                     </time>
                                 </div>
                             </div>

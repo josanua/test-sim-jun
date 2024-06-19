@@ -13,7 +13,6 @@ const GET_NEWS = gql`
       take: $take
     ) {
       id
-      project_id
       url
       title {
         short
@@ -104,7 +103,7 @@ const TheNewsList = () => {
     }, [data]);
 
     if (error) return <p>Error: {error.message}</p>;
-    console.log(data);
+
     return (
         <div>
             <NewsListItem newsList={newsList}/>

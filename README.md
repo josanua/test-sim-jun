@@ -9,12 +9,17 @@ I dedicated about two hours per day to this task, and it took approximately two 
 * ChatGPT help (nothing complicated was speed necessary), Good bless :)
 * Onest font used
 * Text under Logo
+* Truncate description text like on production
 
 Didn't:
 * Use SCSS
 * Apollo Pagination
 * Added article page and link to
 * Responsive design
+* Apply news provider logo
+
 
 # Author thoughts
 For me, the most important aspect was to test myself, and I thank you for the opportunity. I haven't used React in a while, and the key takeaway was understanding that I have grasped the basic principles. The rest comes with experience.
+
+And of course it can be improved! :)
