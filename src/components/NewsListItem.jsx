@@ -38,7 +38,8 @@ const NewsListItem = ({newsList}) => {
                                     />
                                     <time
                                         className="posted-time-text">
-                                        {new Date(newsItem.dates.posted).toLocaleDateString()}
+                                        {/*{new Date(newsItem.dates.posted).toLocaleDateString()}*/}
+                                        {newsItem.dates.posted}
                                     </time>
                                 </div>
                             </div>

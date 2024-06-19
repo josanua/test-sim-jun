@@ -24,7 +24,7 @@ const GET_NEWS = gql`
         thumbnail
       }
       dates {
-        posted
+        posted: posted(format: "2 $$Jan$$. 15:04", lang: "ru", getDiff: true)
       }
     }
   }
@@ -56,8 +56,8 @@ const TheNewsList = () => {
         };
     }, []);
 
-    const { loading, error, data, fetchMore } = useQuery(GET_NEWS, {
-        variables: { skip, take },
+    const {loading, error, data, fetchMore} = useQuery(GET_NEWS, {
+        variables: {skip, take},
         notifyOnNetworkStatusChange: true,
     });
 
@@ -65,8 +65,8 @@ const TheNewsList = () => {
         scrollPositionRef.current = window.scrollY || document.documentElement.scrollTop;
 
         fetchMore({
-            variables: { skip: skip + take, take },
-            updateQuery: (prevResult, { fetchMoreResult }) => {
+            variables: {skip: skip + take, take},
+            updateQuery: (prevResult, {fetchMoreResult}) => {
                 if (!fetchMoreResult) return prevResult;
                 // Remove duplicates
                 const existingIds = new Set(prevResult.contents.map(item => item.id));
@@ -104,7 +104,7 @@ const TheNewsList = () => {
     }, [data]);
 
     if (error) return <p>Error: {error.message}</p>;
-
+    console.log(data);
     return (
         <div>
             <NewsListItem newsList={newsList}/>
