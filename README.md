@@ -7,11 +7,14 @@ I dedicated about two hours per day to this task, and it took approximately two 
 * Data fetching with Apollo
 * Added infinite scroll without libraries
 * ChatGPT help (nothing complicated was speed necessary), Good bless :)
+* Onest font used
+* Text under Logo
 
 Didn't:
 * Use SCSS
 * Apollo Pagination
 * Added article page and link to
+* Responsive design
 
 # Author thoughts
 For me, the most important aspect was to test myself, and I thank you for the opportunity. I haven't used React in a while, and the key takeaway was understanding that I have grasped the basic principles. The rest comes with experience.

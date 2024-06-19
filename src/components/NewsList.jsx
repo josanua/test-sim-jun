@@ -105,7 +105,6 @@ const TheNewsList = () => {
 
     if (error) return <p>Error: {error.message}</p>;
 
-
     return (
         <div>
             <NewsListItem newsList={newsList}/>
