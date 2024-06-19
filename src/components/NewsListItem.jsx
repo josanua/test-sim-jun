@@ -32,8 +32,8 @@ const NewsListItem = ({newsList}) => {
                         }
 
                         <div className="news-text-content">
-                            <a href="/ru/novosti/politika/nestase-spynu-eto-novyi-plakhotniuk">
-                                <h3 className="news-short-title">{newsItem.title.short}</h3>
+                            <a href="#">
+                                <h3 className="news-short-title">{newsItem.title.short.replace(/&#34;/g, '"')}</h3>
                             </a>
                             <p className="news-intro-text">{truncateString(newsItem.description.intro, 142)}</p>
                             <div className="news-metadata-wrapper">
