@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {gql, useQuery} from '@apollo/client';
 import NewsListItem from "./NewsListItem";
 
@@ -30,36 +30,84 @@ const GET_NEWS = gql`
   }
 `;
 
-// Define the NewsList component
+
 const TheNewsList = () => {
-    const take = 3;
+    const take = 10;
     const [newsList, setNews] = useState([]);
     const [skip, setSkip] = useState(0);
+    const [isBottom, setIsBottom] = useState(false);
+    const scrollPositionRef = useRef(0);
 
-    const {loading, error, data, fetchMore} = useQuery(GET_NEWS, {
-        variables: {skip: skip, take: take},
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            if (scrollTop >= scrollableHeight) {
+                setIsBottom(true);
+            } else {
+                setIsBottom(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const { loading, error, data, fetchMore } = useQuery(GET_NEWS, {
+        variables: { skip, take },
         notifyOnNetworkStatusChange: true,
     });
 
     const loadMore = () => {
-        setSkip(skip + take);
+        scrollPositionRef.current = window.scrollY || document.documentElement.scrollTop;
+
         fetchMore({
-            variables: {skip: skip + take, take},
+            variables: { skip: skip + take, take },
+            updateQuery: (prevResult, { fetchMoreResult }) => {
+                if (!fetchMoreResult) return prevResult;
+                // Remove duplicates
+                const existingIds = new Set(prevResult.contents.map(item => item.id));
+                const newContents = fetchMoreResult.contents.filter(item => !existingIds.has(item.id));
+                return {
+                    contents: [
+                        ...prevResult.contents,
+                        ...newContents,
+                    ],
+                };
+            }
+        }).then(() => {
+            // Update skip value after successful fetchMore
+            setSkip(skip + take);
         });
     };
 
     useEffect(() => {
+        if (isBottom) {
+            console.log('bottom');
+            loadMore();
+        }
+    }, [isBottom]);
+
+    useEffect(() => {
         if (data && data.contents) {
-            setNews((prevNews) => [...prevNews, ...data.contents]);
+            setNews((prevNews) => {
+                // Remove duplicates
+                const existingIds = new Set(prevNews.map(item => item.id));
+                const newContents = data.contents.filter(item => !existingIds.has(item.id));
+                return [...prevNews, ...newContents];
+            });
+            window.scrollTo(0, scrollPositionRef.current);
         }
     }, [data]);
 
-    if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
+
 
     return (
         <div>
-            <button onClick={loadMore}>Load more</button>
             <NewsListItem newsList={newsList}/>
             {loading && <p>Loading more...</p>}
         </div>
